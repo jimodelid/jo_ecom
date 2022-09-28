@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "563128451824",
+    "project_id": "joecom-e54b3",
+    "storage_bucket": "joecom-e54b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563128451824:android:30dbb596a05a1b517af835",
+        "android_client_info": {
+          "package_name": "com.example.jo_ecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563128451824-pv9gg3itrm7835o7jmofmi3bj7ug02qb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoK-51Z3PQ4PH6k3TE6Bse0MhIYCXv1IA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563128451824-pv9gg3itrm7835o7jmofmi3bj7ug02qb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
