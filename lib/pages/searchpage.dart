@@ -1,29 +1,19 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jo_ecom/services/classes/firebase.dart';
+import 'package:jo_ecom/services/providers/firebase.dart';
 import 'package:jo_ecom/services/providers/generic.dart';
-import 'package:jo_ecom/services/models/productmodel.dart';
-import 'package:jo_ecom/widgets/genericwidgets/dividerwidget.dart';
+import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/menuwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/titlewidget.dart';
 import 'package:jo_ecom/widgets/searchwidgets/searchresultcard.dart';
-
-final databaseProvider = Provider<FirestoreDatabase?>((ref) {
-  return FirestoreDatabase();
-});
-
-final productsStreamProvider = StreamProvider.autoDispose<List<Product>>((ref) {
-  final database = ref.watch(databaseProvider)!;
-  return database.productsStream(ref);
-});
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var productsStream = ref.watch(productsStreamProvider);
+    var productsStream = ref.watch(searchStreamProvider);
     var searchQuery = ref.watch(productFilterProvider);
 
     return Padding(
@@ -33,9 +23,9 @@ class SearchPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const MenuWidget(),
-          const HorizontalDividerWidget(),
+          const VerticalSpacerWidget(height: 30),
           const TitleWidget(title: 'Products', subtitle: 'Search our'),
-          const HorizontalDividerWidget(),
+          const VerticalSpacerWidget(height: 30),
           TextFormField(
             initialValue: searchQuery,
             onChanged: (value) => ref
@@ -74,7 +64,7 @@ class SearchPage extends ConsumerWidget {
             child: productsStream.when(
               data: (data) => ListView.builder(
                 scrollDirection: Axis.vertical,
-                //shrinkWrap: true,
+                shrinkWrap: true,
                 reverse: false,
                 itemCount: data.length,
                 itemBuilder: (BuildContext context, int index) {

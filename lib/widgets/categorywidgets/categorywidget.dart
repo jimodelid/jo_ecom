@@ -1,18 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jo_ecom/services/models/categorymodel.dart';
-import 'package:jo_ecom/services/classes/firebase.dart';
+import 'package:jo_ecom/services/providers/firebase.dart';
 import 'package:jo_ecom/widgets/categorywidgets/categorycardwidget.dart';
-
-final databaseProvider = Provider<FirestoreDatabase?>((ref) {
-  return FirestoreDatabase();
-});
-
-final categoriesStreamProvider =
-    StreamProvider.autoDispose<List<Category>>((ref) {
-  final database = ref.watch(databaseProvider)!;
-  return database.categoriesStream(ref);
-});
 
 class CategoryWidget extends ConsumerWidget {
   const CategoryWidget({super.key});

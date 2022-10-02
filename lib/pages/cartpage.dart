@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jo_ecom/services/models/cartmodel.dart';
 import 'package:jo_ecom/services/providers/cart.dart';
 import 'package:jo_ecom/widgets/cartwidgets/cartitemswidget.dart';
-import 'package:jo_ecom/widgets/genericwidgets/dividerwidget.dart';
+import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/menuwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/titlewidget.dart';
 
@@ -21,7 +21,7 @@ class CartPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const MenuWidget(),
-            const HorizontalDividerWidget(),
+            const VerticalSpacerWidget(height: 30),
             const TitleWidget(title: 'Cart', subtitle: 'Your'),
             const SizedBox(height: 10),
             cartItems.isEmpty

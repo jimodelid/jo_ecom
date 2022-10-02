@@ -5,3 +5,7 @@ final productFilterProvider =
     StateNotifierProvider<ProductFilterNotifier, String>((ref) {
   return ProductFilterNotifier();
 });
+
+final pageProvider = StateNotifierProvider<PageNotifier, int>((ref) {
+  return PageNotifier();
+});

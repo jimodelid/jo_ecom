@@ -7,3 +7,11 @@ class ProductFilterNotifier extends StateNotifier<String> {
     state = searchValue;
   }
 }
+
+class PageNotifier extends StateNotifier<int> {
+  PageNotifier() : super(0);
+
+  void setPage(page) {
+    state = page;
+  }
+}

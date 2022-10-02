@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jo_ecom/services/providers/auth.dart';
-import 'package:jo_ecom/widgets/genericwidgets/dividerwidget.dart';
+import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/menuwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/titlewidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/toastwidget.dart';
@@ -26,9 +26,9 @@ class FavouritesPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   MenuWidget(),
-                  HorizontalDividerWidget(),
+                  VerticalSpacerWidget(height: 30),
                   TitleWidget(title: 'Favourites', subtitle: 'Your'),
-                  HorizontalDividerWidget(),
+                  VerticalSpacerWidget(height: 30),
                   Text(
                       'You\'re not signed in.\nPlease sign in to see your favourites.'),
                 ],

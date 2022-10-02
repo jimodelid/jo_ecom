@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jo_ecom/widgets/categorywidgets/categorywidget.dart';
-import 'package:jo_ecom/widgets/genericwidgets/dividerwidget.dart';
+import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/menuwidget.dart';
 import 'package:jo_ecom/widgets/productwidgets/productwidget.dart';
 import 'package:jo_ecom/widgets/searchwidgets/searchwidget.dart';
@@ -19,15 +19,15 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             MenuWidget(),
-            HorizontalDividerWidget(),
+            VerticalSpacerWidget(height: 30),
             TitleWidget(title: 'Products', subtitle: 'Our'),
-            HorizontalDividerWidget(),
+            VerticalSpacerWidget(height: 30),
             SearchWidget(),
-            HorizontalDividerWidget(),
+            VerticalSpacerWidget(height: 30),
             CategoryWidget(),
-            HorizontalDividerWidget(),
+            VerticalSpacerWidget(height: 30),
             ProductWidget(),
-            HorizontalDividerWidget(),
+            VerticalSpacerWidget(height: 30),
           ],
         ),
       ),

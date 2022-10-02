@@ -47,6 +47,9 @@ dependencies:
   flutter_riverpod: ^1.0.4
   state_notifier: ^0.7.2+1
   page_transition: ^2.0.9
+  file_picker: ^5.2.0+1
+  image_picker: ^0.8.5+3
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
