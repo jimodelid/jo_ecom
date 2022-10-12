@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jo_ecom/services/models/cartmodel.dart';
 import 'package:jo_ecom/services/models/productmodel.dart';
 import 'package:jo_ecom/services/providers/cart.dart';
-import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 
 class ProductPage extends ConsumerWidget {
   const ProductPage({
@@ -60,13 +59,13 @@ class ProductPage extends ConsumerWidget {
                 product.image,
                 fit: BoxFit.cover,
               ),
-              const VerticalSpacerWidget(height: 30),
+              const SizedBox(height: 30),
               const Text('Summary:'),
               Text(product.summary),
-              const VerticalSpacerWidget(height: 30),
+              const SizedBox(height: 30),
               const Text('Description:'),
               Text(product.description),
-              const VerticalSpacerWidget(height: 30),
+              const SizedBox(height: 30),
               Text('Price: \$${product.price}'),
               Text('Stock: ${product.stock}'),
             ],

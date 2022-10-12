@@ -1,10 +1,10 @@
-// ignore_for_file: file_names
-
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
-import 'package:jo_ecom/widgets/genericwidgets/forms/signinwidget.dart';
-import 'package:jo_ecom/widgets/genericwidgets/forms/signupwidget.dart';
+import 'package:jo_ecom/services/providers/auth.dart';
+import 'package:jo_ecom/services/providers/generic.dart';
+import 'package:jo_ecom/widgets/genericwidgets/signupwidget.dart';
 
 class AuthPage extends ConsumerWidget {
   const AuthPage({super.key});
@@ -13,6 +13,9 @@ class AuthPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final formKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -34,13 +37,129 @@ class AuthPage extends ConsumerWidget {
               width: width * 0.8,
               child: Column(
                 children: [
-                  const SignInWidget(),
-                  const VerticalSpacerWidget(height: 50),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: emailController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Email must not be empty";
+                            }
+                            if (!RegExp(
+                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                .hasMatch(value)) {
+                              return "Email is incorrectly formatted";
+                            }
+                            return null;
+                          },
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            height: 1.0,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(EvaIcons.emailOutline),
+                            prefixIconColor: Colors.black87,
+                            filled: true,
+                            fillColor: const Color.fromARGB(248, 235, 235, 235),
+                            label: const Text('Email'),
+                            labelStyle: const TextStyle(color: Colors.black),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                            enabledBorder: OutlineInputBorder(
+                              gapPadding: 2,
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromARGB(248, 228, 228, 228),
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.lightGreenAccent),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Password must not be empty";
+                            }
+
+                            if (value.length < 8) {
+                              return "Password must be atleast 8 characters long";
+                            }
+
+                            return null;
+                          },
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            height: 1.0,
+                            color: Colors.black,
+                          ),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(EvaIcons.lockOutline),
+                            prefixIconColor: Colors.black87,
+                            filled: true,
+                            fillColor: const Color.fromARGB(248, 235, 235, 235),
+                            label: const Text('Password'),
+                            labelStyle: const TextStyle(color: Colors.black),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                            enabledBorder: OutlineInputBorder(
+                              gapPadding: 2,
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromARGB(248, 228, 228, 228),
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.lightGreenAccent),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        MaterialButton(
+                          minWidth: width * 0.6,
+                          height: 45,
+                          color: Colors.greenAccent,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              ref
+                                  .read(authenticationProvider)
+                                  .signInWithEmailAndPassword(
+                                    emailController.text,
+                                    passwordController.text,
+                                  )
+                                  .then((_) {
+                                ref.read(pageProvider.notifier).setPage(0);
+                              });
+                            }
+                          },
+                          child: const Text('Sign in'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 50),
                   const Text(
                     'Not a member yet?\nPress the button below to get started.',
                     textAlign: TextAlign.center,
                   ),
-                  const VerticalSpacerWidget(height: 10),
+                  const SizedBox(height: 10),
                   MaterialButton(
                     minWidth: width * 0.6,
                     height: 45,

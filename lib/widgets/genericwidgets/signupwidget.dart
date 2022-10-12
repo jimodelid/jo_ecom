@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jo_ecom/services/models/usermodel.dart';
 import 'package:jo_ecom/services/providers/auth.dart';
-import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 
 class SignUpWidget extends ConsumerWidget {
   const SignUpWidget({super.key});
@@ -41,7 +40,7 @@ class SignUpWidget extends ConsumerWidget {
               fontSize: 15,
             ),
           ),
-          const VerticalSpacerWidget(height: 20),
+          const SizedBox(height: 20),
           TextFormField(
             controller: emailController,
             inputFormatters: [
@@ -59,7 +58,7 @@ class SignUpWidget extends ConsumerWidget {
               return null;
             },
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -86,7 +85,7 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: passwordController,
             validator: (value) {
@@ -101,7 +100,7 @@ class SignUpWidget extends ConsumerWidget {
               return null;
             },
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -129,11 +128,11 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: nameController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -160,11 +159,11 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: addressController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -191,15 +190,16 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: width * 0.3,
+                width: width * 0.4,
                 child: TextFormField(
                   controller: zipController,
                   style: const TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     height: 1.0,
                     color: Colors.black,
                   ),
@@ -227,13 +227,11 @@ class SignUpWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              const HorizontalSpacerWidget(width: 5),
-              SizedBox(
-                width: width * 0.409,
+              Expanded(
                 child: TextFormField(
                   controller: areaController,
                   style: const TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     height: 1.0,
                     color: Colors.black,
                   ),
@@ -263,11 +261,11 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ],
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: countryController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -294,7 +292,7 @@ class SignUpWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 10),
+          const SizedBox(height: 10),
           MaterialButton(
             minWidth: width * 0.6,
             height: 45,

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jo_ecom/pages/cartpage.dart';
-import 'package:jo_ecom/pages/favouritespage.dart';
-import 'package:jo_ecom/pages/homepage.dart';
-import 'package:jo_ecom/pages/searchpage.dart';
+import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:jo_ecom/services/providers/generic.dart';
-import 'package:jo_ecom/widgets/genericwidgets/bottombarwidget.dart';
+import 'package:jo_ecom/root.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,16 +18,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int page = ref.watch(pageProvider);
-
-    final screens = [
-      const HomePage(),
-      const SearchPage(),
-      const CartPage(),
-      const FavouritesPage(),
-    ];
-
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Quicksand',
@@ -39,10 +26,7 @@ class MyApp extends ConsumerWidget {
               primary: Colors.black54,
             ),
       ),
-      home: Scaffold(
-          bottomNavigationBar: const BottomBar(),
-          backgroundColor: const Color.fromARGB(249, 249, 249, 249),
-          body: screens[page]),
+      home: const Root(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:jo_ecom/services/models/cartmodel.dart';
-import 'package:jo_ecom/widgets/genericwidgets/toastwidget.dart';
 
 class CartNotifier extends StateNotifier<List<Cart>> {
   CartNotifier() : super([]);
@@ -11,15 +11,27 @@ class CartNotifier extends StateNotifier<List<Cart>> {
       final cartStock =
           state.where((item) => item.id == cartItem.id).first.stock;
       if (cartItem.productStock <= cartStock) {
-        toast(
-            context, 'Unable to add more items to cart due to stock shortage.');
+        Get.snackbar(
+          'Information',
+          'Unable to add more items to cart due to stock shortage.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
       } else {
         increaseQuantity(cartItem.id, context);
-        toast(context, 'Item added to cart.');
+
+        Get.snackbar(
+          'Success',
+          'Item added to cart.',
+          snackPosition: SnackPosition.BOTTOM,
+        );
       }
     } else {
       state = [...state, cartItem];
-      toast(context, 'Item added to cart.');
+      Get.snackbar(
+        'Success',
+        'Item added to cart.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 

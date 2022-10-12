@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jo_ecom/services/models/usermodel.dart';
-import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/titlewidget.dart';
 
 class UserPhoto extends ConsumerWidget {
@@ -21,7 +20,7 @@ class UserPhoto extends ConsumerWidget {
           title: 'Profile Photo',
           subtitle: 'Press the photo to change your profile picture',
         ),
-        const VerticalSpacerWidget(height: 15),
+        const SizedBox(height: 15),
         GestureDetector(
           onTap: () {
             selectFile(user, ref, context);

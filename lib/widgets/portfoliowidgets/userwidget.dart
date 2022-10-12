@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jo_ecom/services/models/usermodel.dart';
 import 'package:jo_ecom/services/providers/firebase.dart';
-import 'package:jo_ecom/widgets/genericwidgets/spacerwidget.dart';
 import 'package:jo_ecom/widgets/genericwidgets/titlewidget.dart';
 
 class UserWidget extends ConsumerWidget {
@@ -36,11 +35,11 @@ class UserWidget extends ConsumerWidget {
               title: 'Easier Checkout',
               subtitle:
                   'By filling out this form you\'ll make your checkout experience faster for reccuring orders.'),
-          const VerticalSpacerWidget(height: 20),
+          const SizedBox(height: 20),
           TextFormField(
             controller: nameController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -67,11 +66,11 @@ class UserWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: addressController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -98,15 +97,17 @@ class UserWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: width * 0.3,
+                width: width * 0.33,
                 child: TextFormField(
                   controller: zipController,
                   style: const TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     height: 1.0,
                     color: Colors.black,
                   ),
@@ -134,13 +135,12 @@ class UserWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              const HorizontalSpacerWidget(width: 5),
-              SizedBox(
-                width: width * 0.58,
+              const SizedBox(width: 5),
+              Expanded(
                 child: TextFormField(
                   controller: areaController,
                   style: const TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     height: 1.0,
                     color: Colors.black,
                   ),
@@ -170,11 +170,11 @@ class UserWidget extends ConsumerWidget {
               ),
             ],
           ),
-          const VerticalSpacerWidget(height: 15),
+          const SizedBox(height: 15),
           TextFormField(
             controller: countryController,
             style: const TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               height: 1.0,
               color: Colors.black,
             ),
@@ -201,7 +201,7 @@ class UserWidget extends ConsumerWidget {
               ),
             ),
           ),
-          const VerticalSpacerWidget(height: 10),
+          const SizedBox(height: 10),
           MaterialButton(
             minWidth: width * 0.6,
             height: 45,
@@ -210,6 +210,7 @@ class UserWidget extends ConsumerWidget {
               if (formKey.currentState!.validate()) {
                 final userInfo = UserModel(
                   id: user.id,
+                  image: user.image,
                   email: user.email,
                   createdAt: user.createdAt,
                   name: nameController.text,
@@ -221,9 +222,6 @@ class UserWidget extends ConsumerWidget {
                 );
 
                 ref.read(databaseProvider)!.updateUser(userInfo, context);
-
-                /*ref.read(authenticationProvider).signUpWithEmailAndPassword(
-                    user, passwordController.text, context, ref);*/
               }
             },
             child: const Text('Update'),

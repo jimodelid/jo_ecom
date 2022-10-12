@@ -26,7 +26,7 @@ class ProductWidget extends ConsumerWidget {
           },
         ),
       ),
-      error: (error, stackTrace) => Text('$stackTrace'),
+      error: (error, stackTrace) => Text('$error'),
       loading: () => const CircularProgressIndicator(),
     );
   }

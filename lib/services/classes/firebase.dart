@@ -2,15 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jo_ecom/pages/homepage.dart';
+import 'package:get/get.dart';
 import 'package:jo_ecom/pages/profilepage.dart';
+import 'package:jo_ecom/root.dart';
 import 'package:jo_ecom/services/models/categorymodel.dart';
 import 'package:jo_ecom/services/models/productmodel.dart';
 import 'package:jo_ecom/services/models/usermodel.dart';
 import 'package:jo_ecom/services/providers/category.dart';
 import 'package:jo_ecom/services/providers/generic.dart';
-import 'package:jo_ecom/widgets/genericwidgets/toastwidget.dart';
-import 'package:page_transition/page_transition.dart';
 
 class FirestorePath {
   static String product(String productId) => 'products/$productId';
@@ -27,12 +26,22 @@ class FirebaseAuthService {
 
   Stream<User?> get authStateChange => auth.authStateChanges();
 
-  Future<void> signInWithEmailAndPassword(
-      String email, String password, BuildContext context) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
+
+      Get.snackbar(
+        'Success',
+        'You\'ve been signed in!',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      Get.offAll(() => const Root());
     } on FirebaseAuthException catch (e) {
-      await toast(context, e.toString());
+      Get.snackbar(
+        'Error',
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
@@ -49,24 +58,25 @@ class FirebaseAuthService {
         password: password,
       )
           .then((value) {
-        toast(context, 'You\'ve been signed in.');
-        Navigator.push(
-          context,
-          PageTransition(
-            child: const ProfilePage(),
-            type: PageTransitionType.rotate,
-            alignment: Alignment.topCenter,
-            duration: const Duration(milliseconds: 500),
-          ),
+        Get.snackbar(
+          'Succecss',
+          'You\'ve been signed in.',
+          snackPosition: SnackPosition.BOTTOM,
         );
+        Get.to(() => const ProfilePage());
       });
     } on FirebaseAuthException catch (e) {
-      await toast(context, e.toString());
+      Get.snackbar(
+        'Error',
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
-  Future<void> signOut(context) async {
+  Future<void> signOut(context, List<UserModel> user) async {
     await auth.signOut();
+    user.clear();
   }
 }
 
@@ -100,7 +110,11 @@ class FirestoreDatabase {
           .doc(user.id)
           .set(user.toMap());
     } on FirebaseAuthException catch (e) {
-      await toast(context, e.toString());
+      Get.snackbar(
+        'Error',
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
@@ -111,10 +125,18 @@ class FirestoreDatabase {
           .doc(user.id)
           .set(user.toMap())
           .then(
-            (_) => toast(context, 'Your information has been updated.'),
+            (_) => Get.snackbar(
+              'Success',
+              'Your information has been updated.',
+              snackPosition: SnackPosition.BOTTOM,
+            ),
           );
     } on FirebaseAuthException catch (e) {
-      await toast(context, e.toString());
+      Get.snackbar(
+        'Error',
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
@@ -230,6 +252,34 @@ class FirestoreDatabase {
 
           result = suggestions;
         }
+
+        return result;
+      },
+    );
+
+    return stream;
+  }
+
+  Stream<List<Product>> multipleProductsStream(ref, List<dynamic> likes) {
+    late Stream<List<Product>> stream;
+
+    final Query query = FirebaseFirestore.instance
+        .collection(
+          FirestorePath.products(),
+        )
+        .where('id', whereIn: likes);
+
+    final Stream<QuerySnapshot> snapshots = query.snapshots();
+
+    stream = snapshots.map(
+      (snapshot) {
+        var result = snapshot.docs
+            .map(
+              (products) => Product.fromFirestore(
+                products.data() as Map<String, dynamic>,
+              ),
+            )
+            .toList();
 
         return result;
       },

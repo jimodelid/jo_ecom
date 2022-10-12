@@ -15,38 +15,36 @@ class SearchWidget extends ConsumerWidget {
       children: [
         Expanded(
           flex: 1,
-          child: Card(
-            child: TextFormField(
-              initialValue: searchQuery,
-              onChanged: (value) => ref
-                  .read(productFilterProvider.notifier)
-                  .setProductFilter(value),
-              style: const TextStyle(
-                fontSize: 14.0,
-                height: 1.0,
-                color: Colors.black,
+          child: TextFormField(
+            initialValue: searchQuery,
+            onChanged: (value) => ref
+                .read(productFilterProvider.notifier)
+                .setProductFilter(value),
+            style: const TextStyle(
+              fontSize: 12.0,
+              height: 1.0,
+              color: Colors.black,
+            ),
+            decoration: InputDecoration(
+              prefixIcon: const Icon(EvaIcons.searchOutline),
+              prefixIconColor: Colors.black87,
+              filled: true,
+              fillColor: const Color.fromARGB(248, 235, 235, 235),
+              label: const Text('Search products in category'),
+              labelStyle: const TextStyle(color: Colors.black),
+              contentPadding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
+              enabledBorder: OutlineInputBorder(
+                gapPadding: 2,
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Color.fromARGB(248, 228, 228, 228),
+                ),
+                borderRadius: BorderRadius.circular(12),
               ),
-              decoration: InputDecoration(
-                prefixIcon: const Icon(EvaIcons.searchOutline),
-                prefixIconColor: Colors.black87,
-                filled: true,
-                fillColor: const Color.fromARGB(248, 235, 235, 235),
-                label: const Text('Search products in category'),
-                labelStyle: const TextStyle(color: Colors.black),
-                contentPadding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
-                enabledBorder: OutlineInputBorder(
-                  gapPadding: 2,
-                  borderSide: const BorderSide(
-                    width: 1,
-                    color: Color.fromARGB(248, 228, 228, 228),
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                      width: 1, color: Colors.lightGreenAccent),
-                ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide:
+                    const BorderSide(width: 1, color: Colors.lightGreenAccent),
               ),
             ),
           ),

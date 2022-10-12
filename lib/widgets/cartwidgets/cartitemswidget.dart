@@ -1,9 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:jo_ecom/services/models/cartmodel.dart';
 import 'package:jo_ecom/services/providers/cart.dart';
-import 'package:jo_ecom/widgets/genericwidgets/toastwidget.dart';
 
 class CartItem extends ConsumerWidget {
   const CartItem({super.key, required this.cartItems});
@@ -82,7 +82,11 @@ class CartItem extends ConsumerWidget {
                     .read(cartItemsProvider.notifier)
                     .removeCartItem(newCartItem.id);
 
-                toast(context, 'Item removed from cart.');
+                Get.snackbar(
+                  'Success',
+                  'Item removed from cart.',
+                  snackPosition: SnackPosition.BOTTOM,
+                );
               },
               icon: const Icon(EvaIcons.trash2Outline),
             ),
