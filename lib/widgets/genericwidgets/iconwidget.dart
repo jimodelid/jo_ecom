@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class IconWidget extends StatelessWidget {
-  const IconWidget({super.key, required this.icon});
+  const IconWidget({super.key, required this.icon, this.scaffoldKey});
 
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final IconData? icon;
 
   @override
@@ -12,13 +13,7 @@ class IconWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         overlayColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent),
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Tap'),
-            ),
-          );
-        },
+        onTap: () => Scaffold.of(context).openDrawer(),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
